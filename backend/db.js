@@ -14,7 +14,7 @@ mongoose.connect(uri, {
 
 const connection = mongoose.connection;
 connection.on("error", (err) => {
-    logError(err);
+    console.log(err);
 });
 connection.once("open", () => {
     console.log("MongoDB database connection established successfully");
