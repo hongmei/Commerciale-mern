@@ -5,10 +5,11 @@ console.log("------------------- MonogoDB init --------------------");
 mongoose.connect(uri, {
     dbName: "commerciale4",
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useUnifiedTopology: true,
     useFindAndModify: false,
     socketTimeoutMS: 300000,
     connectTimeoutMS: 300000,
+    // serverSelectionTimeoutMS: 300000,
     keepAlive: true,
 });
 
