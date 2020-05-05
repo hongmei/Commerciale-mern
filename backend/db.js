@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const uri = process.env.ATLAS_URI || "mongodb://localhost/commerciale4";
+// const uri = process.env.ATLAS_URI || "mongodb://localhost/commerciale4";
+const uri = "mongodb://localhost/commerciale4";
 console.log("------------------- MonogoDB init --------------------");
 mongoose.connect(uri, {
     dbName: "commerciale4",

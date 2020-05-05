@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { uploadSingleImage, uploadMultiImages, deleteImages } = require("../aws-s3");
 const { encrypt, sendEmail, Utils } = require("../utils");
 
 const Admin = require("../models/admin.model");
@@ -7,7 +6,20 @@ const Company = require("../models/company.model");
 
 router.post("/login", async (req, res) => {
     try {
-        let result = await Admin.findOne({ username: req.body.username, password: encrypt(req.body.password) });
+        let result = null;
+        let count = await Admin.countDocuments();
+        if (!count) {
+            let newAdmin = new Admin({ username: "admin", password: encrypt("admin") });
+            result = await newAdmin.save();
+            if (req.body.username === "admin" && req.body.password === "admin") {
+                res.json(result);
+            } else {
+                res.json({ error: "emailOrPasswordIncorrect" });
+            }
+            return;
+        }
+
+        result = await Admin.findOne({ username: req.body.username, password: encrypt(req.body.password) });
         if (!result) {
             res.json({ error: "emailOrPasswordIncorrect" });
             return;
